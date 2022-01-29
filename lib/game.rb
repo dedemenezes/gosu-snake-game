@@ -1,5 +1,6 @@
 require 'gosu'
 require_relative 'snake'
+require_relative 'fruit'
 require_relative 'border_limit'
 
 class GameWindow < Gosu::Window
@@ -10,17 +11,19 @@ class GameWindow < Gosu::Window
     self.caption = "snake_game"
 
     @snake = Snake.new
-
+    @fruit = Fruit.new
+    @fruits = []
     @border_limit = BorderLimit.new(MAX_WIDTH, MAX_HEIGHT)
   end
 
   def update
     @snake.update
-    puts "opaaa" if @border_limit.check_penalty(@snake.x, @snake.y)
+    @snake.restart_position if @border_limit.check_penalty(@snake.x, @snake.y)
   end
 
   def draw
     @snake.draw
+    @fruit.draw if @fruits.empty?
   end
 
   def button_down(id)

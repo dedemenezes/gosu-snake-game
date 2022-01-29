@@ -3,6 +3,7 @@ require 'pry-byebug'
 class Snake
   SIZE = 20
 
+  attr_reader :x, :y
   def initialize
     @x = 0
     @y = 0
@@ -47,10 +48,5 @@ class Snake
   def move_right
     @vel_x = 1
     @vel_y = 0
-  end
-
-  def set_direction
-    moving_axis = [@vel_y, @vel_x].select { |vel| vel != 0 }.first
-    p moving_axis
   end
 end

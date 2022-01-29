@@ -1,16 +1,22 @@
 require 'gosu'
 require_relative 'snake'
+require_relative 'border_limit'
 
 class GameWindow < Gosu::Window
+  MAX_WIDTH = 32 * Snake::SIZE
+  MAX_HEIGHT = 24 * Snake::SIZE
   def initialize
-    super(32 * Snake::SIZE, 24 * Snake::SIZE, false)
+    super(MAX_WIDTH, MAX_HEIGHT, false)
     self.caption = "snake_game"
 
     @snake = Snake.new
+
+    @border_limit = BorderLimit.new(MAX_WIDTH, MAX_HEIGHT)
   end
 
   def update
     @snake.update
+    puts "opaaa" if @border_limit.check_penalty(@snake.x, @snake.y)
   end
 
   def draw
